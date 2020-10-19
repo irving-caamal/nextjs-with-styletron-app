@@ -1,0 +1,7 @@
+{
+  "h1": "Ein einfaches Beispiel",
+  "change-locale": "Wechseln Locale",
+  "to-second-page": "Zur zweiten Seite",
+  "error-with-status": "Hubo un error ({{statusCode}}) maldita sea",
+  "error-without-status": "ERror status"
+}
