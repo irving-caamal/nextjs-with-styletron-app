@@ -1,15 +1,14 @@
-import { Client, Server } from 'styletron-engine-atomic'
-import { DebugEngine } from 'styletron-react'
+import {Client, Server} from 'styletron-engine-atomic';
+import {DebugEngine} from 'styletron-react';
 
-const getHydrateClass = () =>
-  document.getElementsByClassName('_styletron_hydrate_')
+export const isServer = typeof window === 'undefined';
 
-export const styletron =
-  typeof window === 'undefined'
+const getHydrate = () => document.getElementsByClassName('_styletron_hydrate_');
+
+export const styletron = isServer
     ? new Server()
-    : new Client({
-        hydrate: getHydrateClass(),
-      })
+    : new Client({hydrate: getHydrate()});
 
 export const debug =
-  process.env.NODE_ENV === 'production' ? void 0 : new DebugEngine()
+    /*eslint-disable*/
+    process.env.NODE_ENV === 'production' ? void 0 : new DebugEngine();

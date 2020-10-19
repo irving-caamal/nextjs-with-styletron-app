@@ -1,3 +1,4 @@
+
 /*
 Copyright (c) 2018-2020 Uber Technologies, Inc.
 This source code is licensed under the MIT license found in the
@@ -28,20 +29,20 @@ const UberLogo = () => (
 
 const StyledFooter = styled(
     'footer',
-        ({$theme: {typography, sizing, colors, name}}) => ({
-            ...typography.font300,
-            position: 'sticky',
-            bottom: 0,
-            color: colors.contentPrimary,
-            backgroundColor: name.startsWith('light-theme')
-                ? colors.mono200
-                : colors.headerNavigationFill,
-            width: '100%',
-            marginTop: sizing.scale1400,
-            paddingTop: sizing.scale1600,
-            paddingBottom: sizing.scale1600,
-            textAlign: 'center',
-        }),
+    ({$theme: {typography, sizing, colors, name}}) => ({
+        ...typography.font300,
+        position: 'sticky',
+        bottom: 0,
+        color: colors.contentPrimary,
+        backgroundColor: name.startsWith('light-theme')
+            ? colors.mono200
+            : colors.headerNavigationFill,
+        width: '100%',
+        marginTop: sizing.scale1400,
+        paddingTop: sizing.scale1600,
+        paddingBottom: sizing.scale1600,
+        textAlign: 'center',
+    }),
 );
 
 const StyledLink = styled('a', ({$theme}) => ({
@@ -63,7 +64,7 @@ const StyledLink = styled('a', ({$theme}) => ({
     },
 }));
 
-export default () => (
+const Footer = () => (
     <StyledFooter>
         <Block paddingBottom="scale1000">
             <StyledLink href="https://github.com/uber/baseweb" target="_blank">
@@ -91,3 +92,5 @@ export default () => (
         <UberLogo />
     </StyledFooter>
 );
+
+export default Footer;

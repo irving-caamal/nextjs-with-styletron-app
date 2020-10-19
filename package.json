@@ -10,6 +10,7 @@
     "baseui": "^9.102.0",
     "next": "latest",
     "next-i18next": "^6.0.3",
+    "prism-react-renderer": "^1.1.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-redux": "^7.2.1",
@@ -17,5 +18,13 @@
     "styletron-engine-atomic": "^1.1.2",
     "styletron-react": "^5.0.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@mdx-js/tag": "^0.20.3",
+    "@types/react": "^16.9.53",
+    "i": "^0.3.6",
+    "npm": "^6.14.8",
+    "tsdocstandard": "^15.7.1",
+    "typescript": "^4.0.3"
+  }
 }
