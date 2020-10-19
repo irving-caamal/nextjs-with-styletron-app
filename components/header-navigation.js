@@ -56,15 +56,15 @@ export default class MyDocument extends Document {
                     type="text/javascript"
                     src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
                 />
-                {this.props.stylesheets.map((sheet, i) => (
-                    <style
-                        className="_styletron_hydrate_"
-                        dangerouslySetInnerHTML={{__html: sheet.css}}
-                        media={sheet.attrs.media}
-                        data-hydrate={sheet.attrs['data-hydrate']}
-                        key={i}
-                    />
-                ))}
+                {/*{this.props.stylesheets.map((sheet, i) => (*/}
+                {/*    <style*/}
+                {/*        className="_styletron_hydrate_"*/}
+                {/*        dangerouslySetInnerHTML={{__html: sheet.css}}*/}
+                {/*        media={sheet.attrs.media}*/}
+                {/*        data-hydrate={sheet.attrs['data-hydrate']}*/}
+                {/*        key={i}*/}
+                {/*    />*/}
+                {/*))}*/}
                 <link
                     rel="stylesheet"
                     href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"
