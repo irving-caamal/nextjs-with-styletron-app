@@ -19,7 +19,7 @@ import {withStyle} from 'baseui';
 import { i18n, Linki18, withTranslation } from '../i18n'
 
 
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 
 import Markdown from '../components/markdown-elements';
 
