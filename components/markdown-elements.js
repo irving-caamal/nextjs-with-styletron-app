@@ -17,9 +17,7 @@ import Link from 'next/link';
 import Anchor from './anchor';
 import slugify from '../helpers/slugify';
 //import {useHover} from './hooks';
-// type Props = {
-//     children: string | React.Node,
-// };
+
 
 const getText = children => {
     let label = '';
@@ -41,20 +39,21 @@ export const Heading = ({
                             fontType,
                             children,
                         }) => {
-    const [hoverRef, isHovered] = useHover();
+    // const [hoverRef, isHovered] = useHover();
     const slug = cleanAnchor(children);
     return (
         <Block
             as={element}
             marginBottom="8px"
             font={fontType}
-            ref={hoverRef}
+            // ref={hoverRef}
             id={slug}
             color="contentPrimary"
         >
             <React.Fragment>
                 {children}{' '}
-                <Anchor isVisible={isHovered} slug={slug} element={element} />
+                {/*isVisible={isHovered}*/}
+                <Anchor  slug={slug} element={element} />
             </React.Fragment>
         </Block>
     );

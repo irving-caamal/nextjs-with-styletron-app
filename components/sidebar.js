@@ -36,34 +36,35 @@ const CustomStyledNavItem = withStyle(
 
 const removeSlash = path => path && path.replace(/\/$/, '');
 
-const CustomNavItem = ({item, onSelect, onClick, onKeyDown, ...restProps}) => (
-    <CustomStyledNavItem $hasItemId={!!item.itemId} {...restProps} />
-);
-
-const CustomNavLink = props => {
-    return props.href ? (
-        <Link href={props.href}>
-            <StyledNavLink {...props} />
-        </Link>
-    ) : (
-        <StyledNavLink {...props} />
-    );
-};
+// const CustomNavItem = ({item, onSelect, onClick, onKeyDown, ...restProps}) => (
+//     <CustomStyledNavItem $hasItemId={!!item.itemId} {...restProps} />
+// );
+//
+// const CustomNavLink = props => {
+//     return props.href ? (
+//         <Link href={props.href}>
+//             <StyledNavLink {...props} />
+//         </Link>
+//     ) : (
+//         <StyledNavLink {...props} />
+//     );
+// };
 
 const activePredicate = (item, location) =>
     (location && removeSlash(location) === removeSlash(item.itemId)) ||
     (!location && item.itemId === '/');
 
-export default ({path}) => {
+ const Sidebar = ({path}) => {
     return (
         <Navigation
             activeItemId={path}
             activePredicate={activePredicate}
             items={Routes}
-            overrides={{
-                NavItem: CustomNavItem,
-                NavLink: CustomNavLink,
-            }}
+            // overrides={{
+            //     NavItem: CustomNavItem,
+            //     NavLink: CustomNavLink
+            // }}
         />
     );
 };
+export default Sidebar;

@@ -1,4 +1,3 @@
-
 /*
 Copyright (c) 2018-2020 Uber Technologies, Inc.
 This source code is licensed under the MIT license found in the
@@ -8,18 +7,17 @@ LICENSE file in the root directory of this source tree.
 import * as React from 'react';
 import SearchIcon from 'baseui/icon/search';
 import {themedStyled} from '../pages/_app';
+//import {styled} from "baseui"
 //$FlowFixMe
 //import {trackEvent} from '../helpers/ga';
 
 const SEARCH_INPUT_ID = 'algolia-doc-search';
 
-// type State = {
-//     enabled: boolean,
-// };
+
 
 // can't really use baseui/input because algolia injects its
 // own markdown and breaks our component (that's fairly complex)
-const PlainInput = themedStyled<{}>(
+const PlainInput = themedStyled(
     'input',
     ({$theme}) =>
         ({
@@ -55,9 +53,9 @@ const PlainInput = themedStyled<{}>(
                 borderBottomColor: $theme.colors.primary,
             },
         })
-);
+)
 
-const SearchContainer = themedStyled<{}>(
+const SearchContainer = themedStyled(
     'div',
     ({$theme}) =>
         ({
@@ -68,7 +66,7 @@ const SearchContainer = themedStyled<{}>(
         })
 );
 
-const IconWrapper = themedStyled<{}>('div', ({$theme}) => ({
+const IconWrapper = themedStyled('div', ({$theme}) => ({
     position: 'absolute',
     height: '100%',
     display: 'flex',
@@ -83,19 +81,19 @@ class DocSearch extends React.Component {
     };
     componentDidMount() {
         // eslint-disable-next-line
-        const {docsearch} = window;
-        if (docsearch) {
-            docsearch({
-                apiKey: '05dde354af2e84a6d80e426518498d71',
-                indexName: 'baseui',
-                inputSelector: `#${SEARCH_INPUT_ID}`,
-                debug: true,
-            });
-        } else {
-            // eslint-disable-next-line no-console
-            console.warn('Search has failed to load and now is being disabled');
-            this.setState({enabled: false});
-        }
+        // const {docsearch} = window;
+        // if (docsearch) {
+        //     docsearch({
+        //         apiKey: '05dde354af2e84a6d80e426518498d71',
+        //         indexName: 'baseui',
+        //         inputSelector: `#${SEARCH_INPUT_ID}`,
+        //         debug: true,
+        //     });
+        // } else {
+        //     // eslint-disable-next-line no-console
+        //     console.warn('Search has failed to load and now is being disabled');
+        //     this.setState({enabled: true});
+        // }
     }
 
     render() {
@@ -120,7 +118,7 @@ class DocSearch extends React.Component {
                         type="search"
                         placeholder="Search documentation"
                         aria-label="Search documentation"
-                        //onChange={e => trackEvent('algolia_search', e.target.value)}
+
                     />
                 </SearchContainer>
             </React.Fragment>

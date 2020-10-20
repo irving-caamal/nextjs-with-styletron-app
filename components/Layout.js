@@ -9,17 +9,17 @@ import * as React from 'react';
 import {MDXProvider} from '@mdx-js/tag';
 import {Block} from 'baseui/block';
 import {Button, KIND, SIZE} from 'baseui/button';
-import ComponentSizes from '../scripts/component-sizes.json';
 
+//import TableOfContents from './table-of-contents';
 import {themedStyled} from '../pages/_app';
 import MarkdownElements from './markdown-elements';
 import Sidebar from './sidebar';
 import HeaderNavigation from './header-navigation';
 import Footer from './footer';
-
+import PencilIcon from './icons/pencil-icon';
 import Routes from '../routes';
 import DirectionContext from '../components/direction-context';
-
+import ComponentSizes from '../scripts/component-sizes.json';
 import SkipToContent from './skip-to-content';
 
 const GH_URL =
@@ -41,6 +41,7 @@ function findByPath(o, path) {
     }
     return result;
 }
+
 
 
 const TOCWrapper = themedStyled<{}>('div', ({$theme}) => ({

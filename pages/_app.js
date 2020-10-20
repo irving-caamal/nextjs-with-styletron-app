@@ -1,3 +1,11 @@
+/*
+Copyright (c) 2018-2020 Uber Technologies, Inc.
+This source code is licensed under the MIT license found in the
+LICENSE file in the root directory of this source tree.
+*/
+
+/* eslint-env browser */
+
 // @flow
 import * as React from 'react';
 import {
@@ -11,13 +19,13 @@ import {
     LightThemeMove,
 } from 'baseui';
 
-import { appWithTranslation } from '../i18n'
+
 import App from 'next/app';
 import {Provider as StyletronProvider} from 'styletron-react';
 import {Block} from 'baseui/block';
 import Router from 'next/router';
-//import type {AppProps} from 'next/app';
-//import type {NextPage, NextPageContext} from 'next';
+import { appWithTranslation } from '../i18n'
+
 
 import {styletron, debug} from '../helpers/styletron';
 // $FlowFixMe
@@ -30,7 +38,7 @@ const breakpoints = {
     large: 1280,
 };
 
-const ResponsiveTheme = Object.keys(breakpoints).reduce(
+    const ResponsiveTheme = Object.keys(breakpoints).reduce(
     (acc, key) => {
         acc.mediaQuery[
             key
@@ -52,7 +60,7 @@ const themes = {
 
 export const themedStyled = createThemedStyled();
 export const themedWithStyle = createThemedWithStyle();
-export const themedUseStyletron = createThemedUseStyletron(LightTheme);
+export const themedUseStyletron = createThemedUseStyletron();
 
 const DARK_MEDIA_QUERY = '(prefers-color-scheme: dark)';
 const LIGHT_MEDIA_QUERY = '(prefers-color-scheme: light)';
@@ -66,7 +74,6 @@ const blockProps = {
 };
 
 class MyApp extends App {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -74,18 +81,109 @@ class MyApp extends App {
             direction: 'ltr',
         };
         // $FlowFixMe
-        // this.mediaQueryListener = this.mediaQueryListener.bind(this);
+        this.mediaQueryListener = this.mediaQueryListener.bind(this);
     }
 
-    static async getInitialProps({
-                                     Component,
-                                     ctx,
-                                 }) {
+    static async getInitialProps({ Component, ctx}) {
         let pageProps = {};
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps(ctx);
         }
+
         return {path: ctx.asPath, pageProps};
+    }
+    componentDidMount() {
+        Router.onRouteChangeComplete = url => {
+            trackPageView(url.split('?')[0]);
+        };
+        if (window.matchMedia) {
+            const mmDark = window.matchMedia(DARK_MEDIA_QUERY);
+            const mmLight = window.matchMedia(LIGHT_MEDIA_QUERY);
+            // if no theme is set in localStorage, set theme based on user's OS preference
+            if (!this.getThemeStyle() && mmDark.media === DARK_MEDIA_QUERY) {
+                const theme = mmDark.matches ? 'dark' : 'light';
+                localStorage.setItem('docs-theme', theme);
+            }
+            mmDark.addListener(this.mediaQueryListener);
+            mmLight.addListener(this.mediaQueryListener);
+        }
+        this.setTheme();
+    }
+
+    componentWillUnmount() {
+        if (window.matchMedia) {
+            const mmDark = window.matchMedia(DARK_MEDIA_QUERY);
+            const mmLight = window.matchMedia(LIGHT_MEDIA_QUERY);
+            mmDark.removeListener(this.mediaQueryListener);
+            mmLight.removeListener(this.mediaQueryListener);
+        }
+    }
+
+    mediaQueryListener(e) {
+        if (e && e.matches) {
+            if (e.media === DARK_MEDIA_QUERY) {
+                this.setThemeStyle('dark');
+            } else if (e.media === LIGHT_MEDIA_QUERY) {
+                this.setThemeStyle('light');
+            }
+            this.setTheme();
+        }
+    }
+
+    setTheme() {
+        const search = window.location.search;
+        const ls = window.localStorage;
+
+        const config = {
+            font: 'system',
+            theme: 'light',
+        };
+
+        const presetFont = ls.getItem('docs-font');
+        const presetTheme = ls.getItem('docs-theme');
+
+        let fontToSet;
+        let themeToSet;
+
+        if (search.includes('font=move')) {
+            fontToSet = 'move';
+            ls.setItem('docs-font', fontToSet);
+        }
+
+        if (search.includes('font=system')) {
+            fontToSet = 'system';
+            ls.setItem('docs-font', fontToSet);
+        }
+
+        if (search.includes('theme=dark')) {
+            themeToSet = 'dark';
+            ls.setItem('docs-theme', themeToSet);
+        }
+
+        if (search.includes('theme=light')) {
+            themeToSet = 'light';
+            ls.setItem('docs-theme', themeToSet);
+        }
+
+        config.font = fontToSet || presetFont || config.font;
+        config.theme = themeToSet || presetTheme || config.theme;
+
+        const themeName =
+            config.theme === 'dark'
+                ? config.font === 'move'
+                ? 'DarkThemeMove'
+                : 'DarkTheme'
+                : config.font === 'move'
+                ? 'LightThemeMove'
+                : 'LightTheme';
+
+        this.setState({
+            theme: themes[themeName],
+        });
+    }
+
+    getThemeStyle() {
+        return localStorage.getItem('docs-theme');
     }
 
     setThemeStyle(theme) {
@@ -123,24 +221,26 @@ class MyApp extends App {
             }
         }
     }
+
     render() {
-        const { Component, pageProps, path } = this.props
+        const {Component, pageProps, path} = this.props;
         return (
             <StyletronProvider value={styletron} debug={debug} debugAfterHydration>
                 <BaseProvider theme={this.state.theme}>
-                    <DirectionContext.Provider value={this.state.direction}>
-                        <Component
-                            {...pageProps}
-                            path={path}
-                            toggleTheme={this.toggleTheme.bind(this)}
-                            toggleDirection={this.toggleDirection.bind(this)}
-                        />
-                    </DirectionContext.Provider>
+                    <Block {...blockProps}>
+                        <DirectionContext.Provider value={this.state.direction}>
+                            <Component
+                                {...pageProps}
+                                path={path}
+                                toggleTheme={this.toggleTheme.bind(this)}
+                                toggleDirection={this.toggleDirection.bind(this)}
+                            />
+                        </DirectionContext.Provider>
+                    </Block>
                 </BaseProvider>
             </StyletronProvider>
-        )
+        );
     }
 }
-MyApp.getInitialProps = async (appContext) => ({ ...await App.getInitialProps(appContext) })
 
-export default appWithTranslation(MyApp)
+export default  appWithTranslation(MyApp);
