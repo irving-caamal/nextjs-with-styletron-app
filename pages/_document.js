@@ -37,14 +37,14 @@ export default class MyDocument extends Document {
     //     };
     // }
     //
-    // initDelighted() {
-    //     return {
-    //         __html: `
-    //     !function(e,t,r,n,a){if(!e[a]){for(var i=e[a]=[],s=0;s<r.length;s++){var c=r[s];i[c]=i[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);i.push([e,t])}}(c)}i.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+n+"/"+a+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],"5ey7SgIHHblqnpdL","delighted");
-    //     delighted.survey({recurringPeriod: 1});
-    //   `,
-    //     };
-    // }
+    initDelighted() {
+        return {
+            __html: `
+        !function(e,t,r,n,a){if(!e[a]){for(var i=e[a]=[],s=0;s<r.length;s++){var c=r[s];i[c]=i[c]||function(e){return function(){var t=Array.prototype.slice.call(arguments);i.push([e,t])}}(c)}i.SNIPPET_VERSION="1.0.1";var o=t.createElement("script");o.type="text/javascript",o.async=!0,o.src="https://d2yyd1h5u9mauk.cloudfront.net/integrations/web/v1/library/"+n+"/"+a+".js";var p=t.getElementsByTagName("script")[0];p.parentNode.insertBefore(o,p)}}(window,document,["survey","reset","config","init","set","get","event","identify","track","page","screen","group","alias"],"5ey7SgIHHblqnpdL","delighted");
+        delighted.survey({recurringPeriod: 1});
+      `,
+        };
+    }
 
     render() {
         return (
@@ -53,26 +53,38 @@ export default class MyDocument extends Document {
                 {this.props.stylesheets.map((sheet, i) => (
                     <style
                         className="_styletron_hydrate_"
-                        dangerouslySetInnerHTML={{ __html: sheet.css }}
+                        dangerouslySetInnerHTML={{__html: sheet.css}}
                         media={sheet.attrs.media}
                         data-hydrate={sheet.attrs['data-hydrate']}
                         key={i}
                     />
                 ))}
+                <style>{`
+            * {
+              box-sizing: border-box;
+            }
+            body {
+              margin: 0;
+            }
+            ::selection {
+              background: #276EF1;
+              color: white;
+            }
+          `}</style>
             </Head>
             <body>
             <Main />
             <NextScript />
-            {/*{this.props.isProduction && (*/}
-            {/*    <React.Fragment>*/}
-            {/*        <script*/}
-            {/*            async*/}
-            {/*            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}*/}
-            {/*        />*/}
-            {/*        <script dangerouslySetInnerHTML={this.setGoogleTags()} />*/}
-            {/*        <script dangerouslySetInnerHTML={this.initDelighted()} />*/}
-            {/*    </React.Fragment>*/}
-            {/*)}*/}
+            {this.props.isProduction && (
+                <React.Fragment>
+                    <script
+                        async
+                        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                    />
+                    <script dangerouslySetInnerHTML={this.setGoogleTags()} />
+                    <script dangerouslySetInnerHTML={this.initDelighted()} />
+                </React.Fragment>
+            )}
             </body>
             </Html>
         );
