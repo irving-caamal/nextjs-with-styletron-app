@@ -1,5 +1,4 @@
 const { nextI18NextRewrites } = require('next-i18next/rewrites')
-const withImages = require('next-images')
 const localeSubpaths = {}
 
 module.exports = {

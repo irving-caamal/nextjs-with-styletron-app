@@ -76,7 +76,7 @@ export default function HeaderNavigation({
                         })}
                     >
                         <img
-                            src={theme.name.startsWith('dark') ? "DARK" : "LIGHT"}
+                            src={theme.name.startsWith('dark') ? "/favicon.ico" : "/favicon.ico"}
                             className={css({height: '40px'})}
                             alt="Base Web"
                         />
