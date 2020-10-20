@@ -17,7 +17,7 @@
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "styletron-engine-atomic": "^1.1.2",
-    "styletron-react": "^5.0.1"
+    "styletron-react": "^5.2.7"
   },
   "license": "MIT",
   "devDependencies": {
