@@ -222,7 +222,7 @@ class MyApp extends App {
         }
     }
 
-    render() {
+    render(
         const {Component, pageProps, path} = this.props;
         return (
             <StyletronProvider value={styletron} debug={debug} debugAfterHydration>

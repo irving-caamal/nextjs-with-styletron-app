@@ -77,12 +77,12 @@ export default class MyDocument extends Document {
             <NextScript />
             {this.props.isProduction && (
                 <React.Fragment>
-                    <script
-                        async
-                        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-                    />
-                    <script dangerouslySetInnerHTML={this.setGoogleTags()} />
-                    <script dangerouslySetInnerHTML={this.initDelighted()} />
+                    {/*<script*/}
+                    {/*    async*/}
+                    {/*    src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}*/}
+                    {/*/>*/}
+                    {/*<script dangerouslySetInnerHTML={this.setGoogleTags()} />*/}
+                    {/*<script dangerouslySetInnerHTML={this.initDelighted()} />*/}
                 </React.Fragment>
             )}
             </body>
